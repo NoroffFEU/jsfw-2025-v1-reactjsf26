@@ -1,6 +1,9 @@
 import { Link } from '@tanstack/react-router';
+import { useCartStore } from '../../store/cartStore.ts';
 
 const Header = () => {
+  const itemCount = useCartStore((state) => state.itemCount);
+
   return (
     <div className="container">
       <header className="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
@@ -39,7 +42,7 @@ const Header = () => {
                 className="nav-lik text-body-secondary"
                 activeProps={{ className: ` active-link` }}
               >
-                Cart
+                Cart ({itemCount})
               </Link>
             </li>
           </ul>
