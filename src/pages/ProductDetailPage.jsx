@@ -1,11 +1,27 @@
 import { productDetailsRoute } from '../routes';
+import { useCartStore } from '../store/cartStore.ts';
 
 const ProductDetailPage = () => {
-  const { productId } = productDetailsRoute.useParams();
+  const { product } = productDetailsRoute.useLoaderData();
+  const addItem = useCartStore((state) => state.addItem);
 
   return (
     <>
-      <h1>ProductDetailPage: id{productId}</h1>
+      <h1>{product.title}</h1>
+      <p>{product.description}</p>
+      {product.discountedPrice < product.price ? (
+        <>
+          <p>
+            <s>Price: {product.price}</s>
+          </p>
+          <p>Discount: {product.discountedPrice}</p>
+        </>
+      ) : (
+        <p>Price: {product.price}</p>
+      )}
+      <button type="button" onClick={() => addItem(product)}>
+        Add to cart
+      </button>
     </>
   );
 };
