@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { contactFormSchema } from '../schemas/contactFormSchema.ts';
+import { contactFormSchema } from '../schemas/contactFormSchema';
+import type { ContactData } from '../schemas/contactFormSchema';
 
 const ContactPage = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -11,7 +12,7 @@ const ContactPage = () => {
     handleSubmit,
     formState: { errors, isSubmitting, isValid },
     reset,
-  } = useForm({
+  } = useForm<ContactData>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
       fullName: '',
@@ -19,10 +20,10 @@ const ContactPage = () => {
       email: '',
       message: '',
     },
-    mode: 'onBlurs',
+    mode: 'onBlur',
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: ContactData) => {
     console.log('Form data:', data);
     reset();
     setIsSubmitted(true);

@@ -1,12 +1,11 @@
 import { RootRoute, Route, Router } from '@tanstack/react-router';
 import Layout from './components/layout/Layout.jsx';
-import HomePage from './pages/HomePage.jsx';
+import HomePage from './pages/HomePage';
 import CartPage from './pages/CartPage.jsx';
 import CheckoutSuccessPage from './pages/CheckoutSuccessPage.jsx';
-import ContactPage from './pages/ContactPage.jsx';
+import ContactPage from './pages/ContactPage';
 import ProductDetailPage from './pages/ProductDetailPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
-import testProducts from "./mockData/testJSON.js"
 
 const rootRoute = new RootRoute({
   component: Layout,
@@ -29,6 +28,7 @@ const cartRoute = new Route({
   path: '/cart',
   component: CartPage,
 });
+
 const checkoutSuccessRoute = new Route({
   getParentRoute: () => rootRoute,
   path: '/checkout-success',
@@ -46,7 +46,7 @@ export const productDetailsRoute = new Route({
   path: `/product/$productId`,
   component: ProductDetailPage,
   loader: async ({ params }) => {
-    const productData =  testProducts.find(p => p.id === params.productId);
+    const productData = testProducts.find((p) => p.id === params.productId);
     if (!productData) {
       throw new Error('Produkt ikke funnet!');
     }
