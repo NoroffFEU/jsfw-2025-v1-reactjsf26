@@ -40,3 +40,5 @@ export const contactFormSchema = z.object({
       message: 'Message must contain allowed characters',
     }),
 });
+
+export type ContactData = z.infer<typeof contactFormSchema>;
