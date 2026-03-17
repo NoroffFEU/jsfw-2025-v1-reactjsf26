@@ -18,34 +18,38 @@ const ProductContainer = ({
 
   return (
     <section>
-      {products.map((product) => (
-        <div key={product.id}>
-          <h2>{product.title}</h2>
-          <p>
-            Rating:
-            <strong>{product.rating}</strong>
-          </p>
-          <img src={product.image.url} alt={product.image.alt} />
+      {products.length === 0 ? (
+        <p>No products found...</p>
+      ) : (
+        products.map((product) => (
+          <div key={product.id}>
+            <h2>{product.title}</h2>
+            <p>
+              Rating:
+              <strong>{product.rating}</strong>
+            </p>
+            <img src={product.image.url} alt={product.image.alt} />
 
-          {product.discountedPrice < product.price ? (
-            <>
-              <p>
-                <s>Price: {product.price}</s>
-              </p>
-              <p>Discount: {product.discountedPrice}</p>
-            </>
-          ) : (
-            <p>Price: {product.price}</p>
-          )}
+            {product.discountedPrice < product.price ? (
+              <>
+                <p>
+                  <s>Price: {product.price}</s>
+                </p>
+                <p>Discount: {product.discountedPrice}</p>
+              </>
+            ) : (
+              <p>Price: {product.price}</p>
+            )}
 
-          <Link to="/product/$productId" params={{ productId: product.id }}>
-            See details
-          </Link>
-          <button type="button" onClick={() => addItem(product)}>
-            Add to cart
-          </button>
-        </div>
-      ))}
+            <Link to="/product/$productId" params={{ productId: product.id }}>
+              See details
+            </Link>
+            <button type="button" onClick={() => addItem(product)}>
+              Add to cart
+            </button>
+          </div>
+        ))
+      )}
       <PaginationControls
         currentPage={currentPage}
         totalPages={totalPages}
