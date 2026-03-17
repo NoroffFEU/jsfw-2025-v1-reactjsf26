@@ -59,7 +59,9 @@ export const productDetailsRoute = new Route({
     return { product: productData };
   },
   pendingComponent: () => <div>Laster produkt...</div>,
-  errorComponent: ({ error }) => <div>Feil: {error.message}</div>,
+  errorComponent: ({ error }) => (
+    <div>Feil: {error instanceof Error ? error.message : 'Unknown error'}</div>
+  ),
 });
 
 const notFoundRoute = new Route({

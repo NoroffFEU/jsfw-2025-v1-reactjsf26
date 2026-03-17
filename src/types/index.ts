@@ -56,5 +56,5 @@ export interface ApiAllProducts {
 
 export interface ApiSingleProducts {
   data: Product;
-  meta: {};
+  meta: Record<string, never>;
 }

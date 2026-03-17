@@ -21,7 +21,7 @@ const HomePage = () => {
         const response = await fetch(SHOP_API_URL);
         const result: ApiAllProducts = await response.json();
         setProducts(result.data);
-      } catch (errors) {
+      } catch {
         setError('Error on loading products, try again');
       } finally {
         setIsLoading(false);

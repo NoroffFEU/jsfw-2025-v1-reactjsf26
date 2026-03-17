@@ -1,13 +1,18 @@
-import { Link } from '@tanstack/react-router';
+import { useRouter } from '@tanstack/react-router';
 import { useCartStore } from '../store/cartStore.ts';
 
 const formatPrice = (value) => value.toFixed(2);
 
 const CartPage = () => {
+  const router = useRouter();
   const items = useCartStore((state) => state.items);
   const totalCost = useCartStore((state) => state.totalCost);
   const removeItem = useCartStore((state) => state.removeItem);
   const setQuantity = useCartStore((state) => state.setQuantity);
+
+  const handleCheckoutClick = () => {
+    router.navigate({ to: '/checkout-success' });
+  };
 
   if (items.length === 0) {
     return (
@@ -40,7 +45,9 @@ const CartPage = () => {
         </div>
       ))}
       <p>Total: {formatPrice(totalCost)}</p>
-      <Link to="/checkout-success">Checkout</Link>
+      <button type="button" onClick={handleCheckoutClick}>
+        Checkout
+      </button>
     </>
   );
 };

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import type { FieldErrors } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { contactFormSchema } from '../schemas/contactFormSchema';
 import type { ContactData } from '../schemas/contactFormSchema';
@@ -30,8 +31,8 @@ const ContactPage = () => {
     setTimeout(() => setIsSubmitted(false), 5000);
   };
 
-  const onError = (errors, e) => {
-    const firstErrorField = Object.keys(errors)[0];
+  const onError = (formErrors: FieldErrors<ContactData>) => {
+    const firstErrorField = Object.keys(formErrors)[0];
     if (firstErrorField) {
       const fieldElement = document.getElementsByName(firstErrorField)[0];
       if (fieldElement) {
