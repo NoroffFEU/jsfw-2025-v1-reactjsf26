@@ -4,6 +4,7 @@ import type { CartItem, CartState, Product } from '../types/index.ts';
 type CartActions = {
   addItem: (product: Product) => void;
   removeItem: (productId: string) => void;
+  setQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
 };
 
@@ -46,6 +47,18 @@ export const useCartStore = create<CartStore>((set) => ({
   removeItem: (productId) =>
     set((state) => {
       const items = state.items.filter((item) => item.id !== productId);
+      return {
+        items,
+        ...calculateSummary(items),
+      };
+    }),
+  setQuantity: (productId, quantity) =>
+    set((state) => {
+      const safeQuantity = Number.isFinite(quantity) ? Math.max(1, Math.floor(quantity)) : 1;
+      const items = state.items.map((item) =>
+        item.id === productId ? { ...item, quantity: safeQuantity } : item,
+      );
+
       return {
         items,
         ...calculateSummary(items),
