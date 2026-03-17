@@ -1,26 +1,21 @@
 import { Link } from '@tanstack/react-router';
-import { useState } from 'react';
-import PaginationControls from '../helpers/PaginationControls.jsx';
-const itemsPerPage = 10;
+import PaginationControls from '../helpers/PaginationControls';
+import type { Product } from '../../types/index.ts';
 
-const ProductContainer = ({ products }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const totalPages = Math.ceil(products.length / itemsPerPage);
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
-
-  const handlePageChange = (pageNumber) => {
-    if (pageNumber >= 1 && pageNumber <= totalPages) {
-      setCurrentPage(pageNumber);
-    }
-  };
-
+const ProductContainer = ({
+  products,
+  currentPage,
+  totalPages,
+  onPageChange,
+}: {
+  products: Product[];
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+}) => {
   return (
     <section>
-      {currentItems.map((product) => (
+      {products.map((product) => (
         <div key={product.id}>
           <h2>{product.title}</h2>
           <p>
@@ -48,7 +43,7 @@ const ProductContainer = ({ products }) => {
       <PaginationControls
         currentPage={currentPage}
         totalPages={totalPages}
-        onPageChange={handlePageChange}
+        onPageChange={onPageChange}
       />
       <p>
         Showing page {currentPage} of {totalPages}
