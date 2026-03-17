@@ -1,10 +1,10 @@
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from '@tanstack/react-router';
 
 const CheckoutSuccessPage = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleGoHomeClick = () => {
-    navigate('/');
+    router.navigate({ to: '/' });
   };
 
   return (
