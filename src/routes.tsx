@@ -6,8 +6,10 @@ import CheckoutSuccessPage from './pages/CheckoutSuccessPage.jsx';
 import ContactPage from './pages/ContactPage';
 import ProductDetailPage from './pages/ProductDetailPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
+import LoadingSpinner from './components/ui/LoadingSpinner.tsx';
+import ErrorMessage from './components/ui/ErrorMessage.tsx';
 import { SHOP_API_URL } from './constants/api.ts';
-import type { ApiSingleProducts } from './types/index.ts';
+import type { ApiAllProducts, ApiSingleProducts } from './types/index.ts';
 
 const rootRoute = new RootRoute({
   component: Layout,
@@ -17,6 +19,21 @@ export const indexRoute = new Route({
   getParentRoute: () => rootRoute,
   path: '/',
   component: HomePage,
+  loader: async () => {
+    const response = await fetch(SHOP_API_URL);
+
+    if (!response.ok) {
+      throw new Error('Product not found!');
+    }
+    const result: ApiAllProducts = await response.json();
+    return { products: result.data };
+  },
+  pendingComponent: () => {
+    return <LoadingSpinner />;
+  },
+  errorComponent: ({ error }) => {
+    return <ErrorMessage error={error} />;
+  },
   validateSearch: (searchParams) => {
     return {
       query: searchParams?.query ? String(searchParams.query) : undefined,
@@ -49,6 +66,7 @@ export const productDetailsRoute = new Route({
   component: ProductDetailPage,
   loader: async ({ params }) => {
     const response = await fetch(`${SHOP_API_URL}/${params.productId}`);
+
     if (!response.ok) {
       throw new Error('Product not found');
     }
@@ -58,10 +76,12 @@ export const productDetailsRoute = new Route({
 
     return { product: productData };
   },
-  pendingComponent: () => <div>Laster produkt...</div>,
-  errorComponent: ({ error }) => (
-    <div>Feil: {error instanceof Error ? error.message : 'Unknown error'}</div>
-  ),
+  pendingComponent: () => {
+    return <LoadingSpinner />;
+  },
+  errorComponent: ({ error }) => {
+    return <ErrorMessage error={error} />;
+  },
 });
 
 const notFoundRoute = new Route({
