@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router';
 import PaginationControls from '../helpers/PaginationControls';
 import type { Product } from '../../types/index.ts';
+import { useCartStore } from '../../store/cartStore.ts';
 
 const ProductContainer = ({
   products,
@@ -13,6 +14,8 @@ const ProductContainer = ({
   totalPages: number;
   onPageChange: (page: number) => void;
 }) => {
+  const addItem = useCartStore((state) => state.addItem);
+
   return (
     <section>
       {products.map((product) => (
@@ -38,6 +41,9 @@ const ProductContainer = ({
           <Link to="/product/$productId" params={{ productId: product.id }}>
             See details
           </Link>
+          <button type="button" onClick={() => addItem(product)}>
+            Add to cart
+          </button>
         </div>
       ))}
       <PaginationControls
