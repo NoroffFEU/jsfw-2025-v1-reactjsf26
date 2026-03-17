@@ -22,6 +22,23 @@ export interface Product {
   reviews: Review[];
 }
 
+export interface CartItem {
+  id: Product['id'];
+  title: Product['title'];
+  price: Product['discountedPrice'];
+  image: Product['image'];
+  quantity: number;
+}
+
+export interface CartSummary {
+  itemCount: number;
+  totalCost: number;
+}
+
+export interface CartState extends CartSummary {
+  items: CartItem[];
+}
+
 interface Meta {
   isFirstPage: boolean;
   isLastPage: boolean;
@@ -39,5 +56,5 @@ export interface ApiAllProducts {
 
 export interface ApiSingleProducts {
   data: Product;
-  meta: {};
+  meta: Record<string, never>;
 }

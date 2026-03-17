@@ -1,10 +1,17 @@
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useRouter } from '@tanstack/react-router';
+import { useCartStore } from '../store/cartStore.ts';
 
 const CheckoutSuccessPage = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
+  const clearCart = useCartStore((state) => state.clearCart);
+
+  useEffect(() => {
+    clearCart();
+  }, [clearCart]);
 
   const handleGoHomeClick = () => {
-    navigate('/');
+    router.navigate({ to: '/' });
   };
 
   return (
