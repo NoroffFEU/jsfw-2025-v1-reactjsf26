@@ -1,6 +1,5 @@
-# 🛒 Online Shop Project: Style Guide & Technical Spec
+# 🛒 Online Shop Project: Style Guide
 
-This document serves as the single source of truth for the visual and technical implementation of the Online Shop application.
 
 ---
 
@@ -34,44 +33,7 @@ This document serves as the single source of truth for the visual and technical 
 
 ---
 
-## 🛠️ 4. TypeScript Interfaces
-// Save these in a /types/index.ts file
-
-export interface Review {
-  id: string;
-  username: string;
-  rating: number;
-  description: string;
-}
-
-export interface Product {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  discountedPrice: number;
-  image: { url: string; alt: string; };
-  rating: number;
-  tags: string[];
-  reviews: Review[];
-}
-
-export interface CartItem extends Product {
-  quantity: number;
-}
-
----
-
-## 📱 5. Responsive Grid Settings
+## 📱 4. Responsive Grid Settings
 - **Mobile:** 1 Column (Full width cards).
 - **Tablet:** 2-3 Columns.
 - **Desktop:** 4 Columns (Max-width container: 1280px).
-
----
-
-## ✅ 6. Validation Rules (Contact Form)
-- **Full Name:** Minimum 3 characters.
-- **Subject:** Minimum 3 characters.
-- **Email:** Must be a valid email format (e.g., name@domain.com).
-- **Message:** Minimum 10 characters.
-- **Error Display:** Red text (`#DC2626`) appearing immediately below the invalid field.
