@@ -1,4 +1,4 @@
-import { productDetailsRoute } from '../routes';
+import { productDetailsRoute } from '../routes.tsx';
 import { useCartStore } from '../store/cartStore.ts';
 
 const ProductDetailPage = () => {
