@@ -1,4 +1,4 @@
-import Header from './Header.jsx';
+import Header from './Header.js';
 import Footer from './Footer.jsx';
 import { Outlet } from '@tanstack/react-router';
 

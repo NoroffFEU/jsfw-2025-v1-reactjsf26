@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from '@tanstack/react-router';
 import PaginationControls from '../helpers/PaginationControls';
 import type { Product } from '../../types/index.ts';
@@ -8,18 +9,27 @@ const ProductContainer = ({
   currentPage,
   totalPages,
   onPageChange,
+  query,
 }: {
   products: Product[];
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+  query?: string;
 }) => {
   const addItem = useCartStore((state) => state.addItem);
+
+  const [addedId, setAddedId] = useState<string | null>(null);
+
+  const handleAddToCart = (product: Product) => {
+    addItem(product);
+    setAddedId(product.id);
+  };
 
   return (
     <section>
       {products.length === 0 ? (
-        <p>No products found...</p>
+        <p>No products found {query && `for "${query}"`}</p>
       ) : (
         products.map((product) => (
           <div key={product.id}>
@@ -33,19 +43,22 @@ const ProductContainer = ({
             {product.discountedPrice < product.price ? (
               <>
                 <p>
-                  <s>Price: {product.price}</s>
+                  Price:{' '}
+                  <span className="text-decoration-line-through">
+                    {product.price} NOK
+                  </span>
                 </p>
-                <p>Discount: {product.discountedPrice}</p>
+                <p>Discount: {product.discountedPrice} NOK</p>
               </>
             ) : (
-              <p>Price: {product.price}</p>
+              <p>Price: {product.price} NOK</p>
             )}
 
             <Link to="/product/$productId" params={{ productId: product.id }}>
               See details
             </Link>
-            <button type="button" onClick={() => addItem(product)}>
-              Add to cart
+            <button type="button" onClick={() => handleAddToCart(product)}>
+              {addedId !== product.id ? 'Add to cart' : 'Added to cart'}
             </button>
           </div>
         ))

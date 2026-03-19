@@ -1,4 +1,4 @@
-const ErrorMessage = ({ error }: { error: Error | unknown }) => {
+const ErrorMessage = ({ error }: { error: unknown }) => {
   return (
     <>
       <div className="d-flex flex-column align-items-center justify-content-center flex-grow-1">

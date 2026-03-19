@@ -23,8 +23,18 @@ export const indexRoute = new Route({
     const response = await fetch(SHOP_API_URL);
 
     if (!response.ok) {
-      throw new Error('Product not found!');
+      switch (response.status) {
+        case 400:
+          throw new Error('Bad request!');
+        case 404:
+          throw new Error('Product not found!');
+        case 429:
+          throw new Error('Too many Requests, please wait');
+        default:
+          throw new Error('Server error, try again later');
+      }
     }
+
     const result: ApiAllProducts = await response.json();
     return { products: result.data };
   },
@@ -68,7 +78,16 @@ export const productDetailsRoute = new Route({
     const response = await fetch(`${SHOP_API_URL}/${params.productId}`);
 
     if (!response.ok) {
-      throw new Error('Product not found');
+      switch (response.status) {
+        case 400:
+          throw new Error('Bad request!');
+        case 404:
+          throw new Error('Product not found!');
+        case 429:
+          throw new Error('Too many Requests, please wait');
+        default:
+          throw new Error('Server error, try again later');
+      }
     }
 
     const result: ApiSingleProducts = await response.json();

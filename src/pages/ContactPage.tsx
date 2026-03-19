@@ -52,7 +52,7 @@ const ContactPage = () => {
         ''
       )}
       <form onSubmit={handleSubmit(onSubmit, onError)}>
-        <div>
+        <div className="form-group">
           <label htmlFor="fullName">Full name:</label>
           <input
             id="fullName"
@@ -71,7 +71,7 @@ const ContactPage = () => {
             </p>
           )}
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="subject">Subject:</label>
           <input
             id="subject"
@@ -90,7 +90,7 @@ const ContactPage = () => {
             </p>
           )}
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="email">Email:</label>
           <input
             id="email"
@@ -109,7 +109,7 @@ const ContactPage = () => {
             </p>
           )}
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="message">Message:</label>
           <textarea
             id="message"

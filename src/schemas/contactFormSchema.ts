@@ -1,8 +1,5 @@
 import { z } from 'zod';
 
-const NORWEGIAN_EMAIL_REGEX =
-  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
 const STRING_REGEX = /^[a-zA-ZæøåÆØÅ .'-]+$/;
 
 export const contactFormSchema = z.object({
@@ -25,12 +22,9 @@ export const contactFormSchema = z.object({
   email: z
     .string()
     .trim()
-    .email('Invalid email address')
+    .email('Invalid email format')
     .min(3, { message: 'Email must be at least 3 characters.' })
-    .max(50, { message: 'Email can not be longer than 50 characters' })
-    .refine((mail) => NORWEGIAN_EMAIL_REGEX.test(mail), {
-      message: 'Email seems to contain a mistake',
-    }),
+    .max(50, { message: 'Email can not be longer than 50 characters' }),
   message: z
     .string()
     .trim()
