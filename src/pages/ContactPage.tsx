@@ -4,6 +4,7 @@ import type { FieldErrors } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { contactFormSchema } from '../schemas/contactFormSchema';
 import type { ContactData } from '../schemas/contactFormSchema';
+import ContactText from '../components/ui/ContactText';
 
 const ContactPage = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -42,97 +43,167 @@ const ContactPage = () => {
   };
 
   return (
-    <>
-      <h1>Contact Us</h1>
-      {isSubmitted ? (
-        <div className="alert alert-success" role="alert">
-          <p>Form successfully submitted</p>
+    <div className="container align-items-center justify-content-center text-center my-3 my-md-5">
+      <div className="row">
+        <div className="col-12 order-2 col-md-5 order-md-1 mt-5 mt-md-0">
+          <ContactText />
         </div>
-      ) : (
-        ''
-      )}
-      <form onSubmit={handleSubmit(onSubmit, onError)}>
-        <div className="form-group">
-          <label htmlFor="fullName">Full name:</label>
-          <input
-            id="fullName"
-            type="text"
-            {...register('fullName')}
-            aria-invalid={errors.fullName ? 'true' : 'false'}
-            aria-describedby="fullNameError"
-          />
-          {errors.fullName && (
-            <p
-              id="fullNameError"
+        <div className="col-12 order-1 col-md-7">
+          <h1>Contact Us</h1>
+          {isSubmitted ? (
+            <div
+              className="alert alert-success success-message d-flex justify-content-center text-center "
               role="alert"
-              style={{ color: 'red', fontSize: '0.9em' }}
             >
-              {errors.fullName.message}
-            </p>
+              <p className="mb-0">Form successfully submitted</p>
+            </div>
+          ) : (
+            ''
           )}
+          <form onSubmit={handleSubmit(onSubmit, onError)}>
+            <div className="form-group pb-4">
+              <label
+                className="form-label form-label-element d-block text-start"
+                htmlFor="fullName"
+              >
+                Full name
+                <i className="bi bi-asterisk form-icon">
+                  <span className="visually-hidden">hidden</span>
+                </i>{' '}
+                :
+              </label>
+              <div className="mx-auto form-input-control position-relative">
+                <input
+                  className="form-control w-100"
+                  id="fullName"
+                  type="text"
+                  autoComplete="name"
+                  {...register('fullName')}
+                  aria-invalid={errors.fullName ? 'true' : 'false'}
+                  aria-describedby="fullNameError"
+                />
+                {errors.fullName && (
+                  <p
+                    id="fullNameError"
+                    role="alert"
+                    className="text-danger position-absolute top-100 start-0  small mb-0"
+                  >
+                    {errors.fullName.message}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="form-group pb-4">
+              <label
+                className="form-label form-label-element d-block text-start"
+                htmlFor="subject"
+              >
+                Subject
+                <i className="bi bi-asterisk form-icon">
+                  <span className="visually-hidden">hidden</span>
+                </i>{' '}
+                :
+              </label>
+              <div className="mx-auto form-input-control position-relative">
+                <input
+                  className="form-control w-100"
+                  id="subject"
+                  type="text"
+                  autoComplete="off"
+                  {...register('subject')}
+                  aria-invalid={errors.subject ? 'true' : 'false'}
+                  aria-describedby="subjectError"
+                />
+                {errors.subject && (
+                  <p
+                    id="subjectError"
+                    role="alert"
+                    className="text-danger position-absolute top-100 start-0  small mb-0"
+                  >
+                    {errors.subject.message}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="form-group pb-4">
+              <label
+                className="form-label form-label-element d-block text-start"
+                htmlFor="email"
+              >
+                Email
+                <i className="bi bi-asterisk form-icon">
+                  <span className="visually-hidden">hidden</span>
+                </i>{' '}
+                :
+              </label>
+              <div className="mx-auto form-input-control position-relative">
+                <input
+                  className="form-control w-100"
+                  id="email"
+                  type="email"
+                  autoComplete="email"
+                  {...register('email')}
+                  aria-invalid={errors.email ? 'true' : 'false'}
+                  aria-describedby="emailError"
+                />
+                {errors.email && (
+                  <p
+                    id="emailError"
+                    role="alert"
+                    className="text-danger position-absolute top-100 start-0  small mb-0"
+                  >
+                    {errors.email.message}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label
+                className="form-label form-label-element d-block text-start"
+                htmlFor="message"
+              >
+                Message
+                <i className="bi bi-asterisk form-icon">
+                  <span className="visually-hidden">hidden</span>
+                </i>{' '}
+                :
+              </label>
+              <div className="mx-auto form-input-control position-relative">
+                <textarea
+                  className="form-control w-100"
+                  id="message"
+                  autoComplete="off"
+                  {...register('message')}
+                  aria-invalid={errors.message ? 'true' : 'false'}
+                  aria-describedby="messageError"
+                />
+                {errors.message && (
+                  <p
+                    id="messageError"
+                    role="alert"
+                    className="text-danger position-absolute top-100 start-0  small mb-0"
+                  >
+                    {errors.message.message}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div className="d-flex form-button-control justify-content-end">
+              <button
+                className="btn btn-primary mt-3"
+                type="submit"
+                disabled={isSubmitting || !isValid}
+              >
+                {' '}
+                {isSubmitting ? 'Sending in...' : 'Contact Us'}
+              </button>
+            </div>
+          </form>
         </div>
-        <div className="form-group">
-          <label htmlFor="subject">Subject:</label>
-          <input
-            id="subject"
-            type="text"
-            {...register('subject')}
-            aria-invalid={errors.subject ? 'true' : 'false'}
-            aria-describedby="subjectError"
-          />
-          {errors.subject && (
-            <p
-              id="subjectError"
-              role="alert"
-              style={{ color: 'red', fontSize: '0.9em' }}
-            >
-              {errors.subject.message}
-            </p>
-          )}
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            id="email"
-            type="email"
-            {...register('email')}
-            aria-invalid={errors.email ? 'true' : 'false'}
-            aria-describedby="emailError"
-          />
-          {errors.email && (
-            <p
-              id="emailError"
-              role="alert"
-              style={{ color: 'red', fontSize: '0.9em' }}
-            >
-              {errors.email.message}
-            </p>
-          )}
-        </div>
-        <div className="form-group">
-          <label htmlFor="message">Message:</label>
-          <textarea
-            id="message"
-            {...register('message')}
-            aria-invalid={errors.message ? 'true' : 'false'}
-            aria-describedby="messageError"
-          />
-          {errors.message && (
-            <p
-              id="messageError"
-              role="alert"
-              style={{ color: 'red', fontSize: '0.9em' }}
-            >
-              {errors.message.message}
-            </p>
-          )}
-        </div>
-        <button type="submit" disabled={isSubmitting || !isValid}>
-          {' '}
-          {isSubmitting ? 'Sending in...' : 'Contact Us'}
-        </button>
-      </form>
-    </>
+      </div>
+    </div>
   );
 };
 

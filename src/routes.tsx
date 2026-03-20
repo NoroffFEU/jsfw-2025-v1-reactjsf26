@@ -1,15 +1,15 @@
 import { RootRoute, Route, Router } from '@tanstack/react-router';
-import Layout from './components/layout/Layout.jsx';
+import Layout from './components/layout/Layout';
 import HomePage from './pages/HomePage';
-import CartPage from './pages/CartPage.jsx';
-import CheckoutSuccessPage from './pages/CheckoutSuccessPage.jsx';
+import CartPage from './pages/CartPage';
+import CheckoutSuccessPage from './pages/CheckoutSuccessPage';
 import ContactPage from './pages/ContactPage';
-import ProductDetailPage from './pages/ProductDetailPage.jsx';
-import NotFoundPage from './pages/NotFoundPage.jsx';
-import LoadingSpinner from './components/ui/LoadingSpinner.tsx';
-import ErrorMessage from './components/ui/ErrorMessage.tsx';
-import { SHOP_API_URL } from './constants/api.ts';
-import type { ApiAllProducts, ApiSingleProducts } from './types/index.ts';
+import ProductDetailPage from './pages/ProductDetailPage';
+import NotFoundPage from './pages/NotFoundPage';
+import LoadingSpinner from './components/ui/LoadingSpinner';
+import ErrorMessage from './components/ui/ErrorMessage';
+import { SHOP_API_URL } from './constants/api';
+import type { ApiAllProducts, ApiSingleProducts } from './types/index';
 
 const rootRoute = new RootRoute({
   component: Layout,

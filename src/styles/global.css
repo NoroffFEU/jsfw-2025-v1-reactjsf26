@@ -1,19 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
 }
+
+:root {
+  --color-primary: #2563eb;
+  --color-secondary: #f59e0b;
+  --color-danger: #dc2626;
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-text-heading: #0f172a;
+  --color-text-body: #1e293b;
+  --color-text-muted: #64748b;
+}
+
+body {
+  font-family: Inter, sans-serif;
+  font-size: 1rem;
+  color: var(--color-text-body);
+  background-color: var(--color-bg) !important;
+}
+
 main {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-text-heading);
+}
+
+h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text-heading);
+}
+
 p {
   font-size: 1.2rem;
 }
+
+/* --- Main --- */
+.price-main {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-danger);
+}
+
+.price-original {
+  font-size: 0.875rem;
+  text-decoration: line-through;
+  color: var(--color-text-muted);
+}
+
+/* --- Button --- */
+.btn-primary {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8 !important; /* 10% darker */
+  border-color: #1d4ed8 !important;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
 .active-link {
   font-weight: bold;
   color: darkcyan;
   text-decoration: none;
+}
+
+/* --- Form Field --- */
+
+.form-label-element,
+.success-message {
+  width: 80%;
+  margin: 0 auto;
+}
+.form-input-control {
+  width: 80% !important;
+}
+.form-button-control {
+  width: 90% !important;
+}
+.form-icon {
+  font-size: 0.5rem;
+  vertical-align: super;
 }

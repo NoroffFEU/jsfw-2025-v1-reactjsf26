@@ -1,7 +1,7 @@
 import { useRouter } from '@tanstack/react-router';
 import { useCartStore } from '../store/cartStore.ts';
 
-const formatPrice = (value) => value.toFixed(2);
+const formatPrice = (value: number) => value.toFixed(2);
 
 const CartPage = () => {
   const router = useRouter();
@@ -36,7 +36,9 @@ const CartPage = () => {
               type="number"
               min="1"
               value={item.quantity}
-              onChange={(event) => setQuantity(item.id, Number(event.target.value))}
+              onChange={(event) =>
+                setQuantity(item.id, Number(event.target.value))
+              }
             />
           </label>
           <button type="button" onClick={() => removeItem(item.id)}>
