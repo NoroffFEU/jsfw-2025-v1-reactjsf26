@@ -7,7 +7,6 @@ const ITEMS_PER_PAGE = 10;
 
 const HomePage = () => {
   const { products } = indexRoute.useLoaderData();
-
   const { query, page } = indexRoute.useSearch();
   const router = useRouter();
   const [localQuery, setLocalQuery] = useState(query || '');
@@ -24,8 +23,8 @@ const HomePage = () => {
 
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
   const currentPage = Math.min(Math.max(page, 1), totalPages || 1);
-
   const indexOfFirst = (currentPage - 1) * ITEMS_PER_PAGE;
+
   const currentItems = filteredProducts.slice(
     indexOfFirst,
     indexOfFirst + ITEMS_PER_PAGE,
