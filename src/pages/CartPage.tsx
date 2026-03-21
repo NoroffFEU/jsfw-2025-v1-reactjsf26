@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { useRouter } from '@tanstack/react-router';
 import { useCartStore } from '../store/cartStore.ts';
+import ToastContainer from '../components/ui/ToastContainer';
 
 const formatPrice = (value: number) => value.toFixed(2);
 
@@ -10,8 +12,19 @@ const CartPage = () => {
   const removeItem = useCartStore((state) => state.removeItem);
   const setQuantity = useCartStore((state) => state.setQuantity);
 
+  const [removedItem, setRemovedItem] = useState<{
+    title: string;
+    price: number;
+  } | null>(null);
+
   const handleCheckoutClick = () => {
     router.navigate({ to: '/checkout-success' });
+  };
+
+  const handleRemove = (id: string, title: string, price: number) => {
+    removeItem(id);
+    setRemovedItem({ title, price });
+    setTimeout(() => setRemovedItem(null), 5000);
   };
 
   if (items.length === 0) {
@@ -19,6 +32,13 @@ const CartPage = () => {
       <>
         <h1>Cart</h1>
         <p>Your cart is empty.</p>
+        {removedItem && (
+          <ToastContainer
+            item={removedItem}
+            header="Removed from Cart"
+            onClose={() => setRemovedItem(null)}
+          />
+        )}
       </>
     );
   }
@@ -41,7 +61,10 @@ const CartPage = () => {
               }
             />
           </label>
-          <button type="button" onClick={() => removeItem(item.id)}>
+          <button
+            type="button"
+            onClick={() => handleRemove(item.id, item.title, item.price * item.quantity)}
+          >
             Remove
           </button>
         </div>
@@ -50,6 +73,13 @@ const CartPage = () => {
       <button type="button" onClick={handleCheckoutClick}>
         Checkout
       </button>
+      {removedItem && (
+        <ToastContainer
+          item={removedItem}
+          header="Removed from Cart"
+          onClose={() => setRemovedItem(null)}
+        />
+      )}
     </>
   );
 };
