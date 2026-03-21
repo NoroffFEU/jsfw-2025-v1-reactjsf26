@@ -47,7 +47,13 @@ const HomePage = () => {
         <input
           type="text"
           value={localQuery}
-          onChange={(e) => setLocalQuery(e.target.value)}
+          onChange={(e) => {
+            setLocalQuery(e.target.value);
+            router.navigate({
+              to: '/',
+              search: { query: e.target.value, page: 1 },
+            });
+          }}
           onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
           placeholder="Search for product..."
           className="border border-dark px-4 py-2 rounded-pill"

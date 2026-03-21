@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Link } from '@tanstack/react-router';
 import PaginationControls from '../helpers/PaginationControls';
-import type { Product } from '../../types/index.ts';
-import { useCartStore } from '../../store/cartStore.ts';
+import type { Product } from '../../types/index';
+import { useCartStore } from '../../store/cartStore';
+import ToastContainer from '../ui/ToastContainer';
 
 const ProductContainer = ({
   products,
@@ -18,12 +19,18 @@ const ProductContainer = ({
   query?: string;
 }) => {
   const addItem = useCartStore((state) => state.addItem);
+  const [toastItem, setToastItem] = useState<{
+    title: string;
+    price: number;
+  } | null>(null);
 
   const [addedId, setAddedId] = useState<string | null>(null);
 
   const handleAddToCart = (product: Product) => {
     addItem(product);
     setAddedId(product.id);
+    setToastItem({ title: product.title, price: product.discountedPrice });
+    setTimeout(() => setToastItem(null), 5000);
   };
 
   return (
@@ -71,6 +78,9 @@ const ProductContainer = ({
       <p>
         Showing page {currentPage} of {totalPages}
       </p>
+      {toastItem && (
+        <ToastContainer item={toastItem} onClose={() => setToastItem(null)} />
+      )}
     </section>
   );
 };
