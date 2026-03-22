@@ -33,9 +33,6 @@ const HomePage = () => {
   const handlePageChange = (newPage: number) => {
     router.navigate({ to: '/', search: { query, page: newPage } });
   };
-  const handleSearch = () => {
-    router.navigate({ to: '/', search: { query: localQuery, page: 1 } });
-  };
   const clearSearch = () => {
     router.navigate({ to: '/', search: { query: '', page: 1 } });
     setLocalQuery('');
@@ -43,38 +40,41 @@ const HomePage = () => {
 
   return (
     <>
-      <div className="container input-group d-flex align-items-center justify-content-center text-center">
-        <input
-          type="text"
-          value={localQuery}
-          onChange={(e) => {
-            setLocalQuery(e.target.value);
-            router.navigate({
-              to: '/',
-              search: { query: e.target.value, page: 1 },
-            });
-          }}
-          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-          placeholder="Search for product..."
-          className="border border-dark px-4 py-2 rounded-pill"
-        />
-        <div className="input-group-append">
-          <button className="btn btn-primary" onClick={handleSearch}>
-            Search
-          </button>
-          <button className="btn btn-secondary" onClick={clearSearch}>
-            Clear
-          </button>
+      <div>
+        <div
+          className="container input-group d-flex  shadow-sm align-items-center justify-content-center text-center p-0"
+          style={{ maxWidth: '350px' }}
+        >
+          <input
+            type="text"
+            value={localQuery}
+            onChange={(e) => {
+              setLocalQuery(e.target.value);
+              router.navigate({
+                to: '/',
+                search: { query: e.target.value, page: 1 },
+              });
+            }}
+            placeholder="Search for product..."
+            className="form-control border rounded"
+          />
+          <div className="input-group-append">
+            <button
+              className="btn btn-secondary rounded-0 px-3"
+              onClick={clearSearch}
+            >
+              Clear
+            </button>
+          </div>
         </div>
+        <ProductContainer
+          products={currentItems}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+          query={query}
+        />
       </div>
-      <h1>Our Products</h1>
-      <ProductContainer
-        products={currentItems}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-        query={query}
-      />
     </>
   );
 };

@@ -8,14 +8,16 @@ const PaginationControls = ({
   onPageChange: (page: number) => void;
 }) => {
   return (
-    <div>
+    <div className="d-flex gap-2">
       <button
+        className="btn btn-primary text-white"
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1 || totalPages === 0}
       >
         Previous
       </button>
       <button
+        className="btn btn-primary text-white"
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages || totalPages === 0}
       >
