@@ -42,7 +42,7 @@ const HomePage = () => {
     <>
       <div>
         <div
-          className="container input-group d-flex  shadow-sm align-items-center justify-content-center text-center p-0"
+          className="container input-group d-flex  shadow-sm align-items-center justify-content-center text-center p-0 mb-4 mt-4"
           style={{ maxWidth: '350px' }}
         >
           <input

@@ -1,4 +1,41 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/* --- Header Navbar Underline Hover (Bootstrap style) --- */
+.navbar .nav-link {
+  position: relative;
+  color: var(--color-text-body);
+  font-weight: 500;
+  transition: color 0.18s;
+}
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+  color: #111;
+}
+/* Hide underline on mobile (collapsed navbar) */
+@media (max-width: 991.98px) {
+  .navbar .nav-link::after {
+    display: none !important;
+  }
+}
+
+.navbar .nav-link::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.2rem;
+  height: 2px;
+  background: transparent;
+  transition: background 0.18s;
+}
+.navbar .nav-link:hover::after,
+.navbar .nav-link:focus::after,
+.navbar .nav-link.active-link::after {
+  background: #111;
+}
+/* --- Cart Badge for Navbar --- */
 
 * {
   margin: 0;

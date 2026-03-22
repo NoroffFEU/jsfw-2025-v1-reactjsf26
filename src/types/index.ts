@@ -25,7 +25,8 @@ export interface Product {
 export interface CartItem {
   id: Product['id'];
   title: Product['title'];
-  price: Product['discountedPrice'];
+  price: Product['discountedPrice']; // discounted price
+  originalPrice: Product['price'];   // original price
   image: Product['image'];
   quantity: number;
 }
