@@ -35,27 +35,42 @@ const ProductCard = ({
           )}
         </div>
         <div className="card-body d-flex flex-column gap-2">
-          <h5 className="card-title">{product.title}</h5>
-          {hasDiscount(product) ? (
-            <>
-              <p>
-                Price:{' '}
-                <span className="text-decoration-line-through">
+          <h5 className="card-title fw-semibold mb-0">{product.title}</h5>
+          <div className="mt-auto pt-2">
+            {hasDiscount(product) ? (
+              <div className="d-flex align-items-baseline gap-2">
+                <span className="fs-5">{product.discountedPrice} NOK</span>
+                <span className="text-muted text-decoration-line-through small">
                   {product.price} NOK
                 </span>
-              </p>
-              <p>Discount: {product.discountedPrice} NOK</p>
-            </>
-          ) : (
-            <p>Price: {product.price} NOK</p>
-          )}
+              </div>
+            ) : (
+              <span className="fw-bold fs-5">{product.price} NOK</span>
+            )}
+          </div>
+          <div className="card-footer bg-transparent border-0 d-flex gap-2 px-0">
+            <Link
+              to="/product/$productId"
+              params={{ productId: product.id }}
+              className="btn btn-outline-secondary btn-sm flex-fill"
+            >
+              See details
+            </Link>
+            <button
+              type="button"
+              onClick={() => addToCart(product)}
+              className={`btn btn-sm flex-fill fw-semibold ${addedId === product.id ? 'btn-success' : 'btn-dark'}`}
+            >
+              {addedId !== product.id ? (
+                <>Add to cart</>
+              ) : (
+                <>
+                  <i className="bi bi-check-lg" /> Added
+                </>
+              )}
+            </button>
+          </div>
         </div>
-        <Link to="/product/$productId" params={{ productId: product.id }}>
-          See details
-        </Link>
-        <button type="button" onClick={() => addToCart(product)}>
-          {addedId !== product.id ? 'Add to cart' : 'Added to cart'}
-        </button>
       </div>
     </div>
   );
