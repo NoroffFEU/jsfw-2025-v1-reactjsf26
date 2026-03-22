@@ -1,4 +1,3 @@
-import { Link } from '@tanstack/react-router';
 
 const Footer = () => {
   return (

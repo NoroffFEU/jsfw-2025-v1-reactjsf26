@@ -10,6 +10,11 @@ const CartPage = () => {
   const router = useRouter();
   const items = useCartStore((state) => state.items);
   const totalCost = useCartStore((state) => state.totalCost);
+
+  // Calculate original total and discount
+  const originalTotal = items.reduce((sum, item) => sum + (item.originalPrice ?? item.price) * item.quantity, 0);
+  const discountedTotal = totalCost;
+  const discount = originalTotal - discountedTotal;
   const removeItem = useCartStore((state) => state.removeItem);
   const setQuantity = useCartStore((state) => state.setQuantity);
 
@@ -98,6 +103,19 @@ const CartPage = () => {
               <span className="text-muted">Items</span>
               <span className="fw-semibold text-body" style={{ color: 'var(--color-text-body)' }}>{items.reduce((sum, item) => sum + item.quantity, 0)}</span>
             </div>
+            {/* Show original total and discount if there is a discount */}
+            {discount > 0 && (
+              <>
+                <div className="d-flex justify-content-between mb-1">
+                  <span className="fw-semibold">Original Total</span>
+                  <span className="text-muted text-decoration-line-through">{formatPrice(originalTotal)} NOK</span>
+                </div>
+                <div className="d-flex justify-content-between mb-1">
+                  <span className="fw-semibold">Discount</span>
+                  <span className="text-success">- {formatPrice(discount)} NOK</span>
+                </div>
+              </>
+            )}
             <div className="d-flex justify-content-between mb-3">
               <span className="fw-semibold">Total</span>
               <span className="fw-bold fs-5 text-primary">{formatPrice(totalCost)} NOK</span>
