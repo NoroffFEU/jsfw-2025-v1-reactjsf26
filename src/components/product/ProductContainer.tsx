@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Link } from '@tanstack/react-router';
 import PaginationControls from '../helpers/PaginationControls';
 import type { Product } from '../../types/index';
 import { useCartStore } from '../../store/cartStore';
@@ -31,6 +30,7 @@ const ProductContainer = ({
     addItem(product);
     setAddedId(product.id);
     setToastItem({ title: product.title, price: product.discountedPrice });
+    setTimeout(() => setAddedId(null), 5000);
     setTimeout(() => setToastItem(null), 5000);
   };
 
