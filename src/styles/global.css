@@ -1,41 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-
-/* --- Header Navbar Underline Hover (Bootstrap style) --- */
-.navbar .nav-link {
-  position: relative;
-  color: var(--color-text-body);
-  font-weight: 500;
-  transition: color 0.18s;
-}
-.navbar .nav-link:hover,
-.navbar .nav-link:focus {
-  color: #111;
-}
-/* Hide underline on mobile (collapsed navbar) */
-@media (max-width: 991.98px) {
-  .navbar .nav-link::after {
-    display: none !important;
-  }
-}
-
-.navbar .nav-link::after {
-  content: '';
-  display: block;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0.2rem;
-  height: 2px;
-  background: transparent;
-  transition: background 0.18s;
-}
-.navbar .nav-link:hover::after,
-.navbar .nav-link:focus::after,
-.navbar .nav-link.active-link::after {
-  background: #111;
-}
-/* --- Cart Badge for Navbar --- */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap');
 
 * {
   margin: 0;
@@ -56,10 +20,58 @@
 }
 
 body {
-  font-family: Inter, sans-serif;
+  font-family: Manrope, sans-serif;
   font-size: 1rem;
   color: var(--color-text-body);
   background-color: var(--color-bg) !important;
+}
+
+/* --- Header / Footer accents over Bootstrap --- */
+.app-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.35rem;
+  letter-spacing: 0.03em;
+  color: var(--color-text-heading);
+}
+
+.app-nav-link {
+  color: var(--color-text-body);
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.app-nav-link:hover,
+.app-nav-link:focus {
+  color: #0f172a;
+  background-color: rgba(37, 99, 235, 0.08);
+  transform: translateY(-1px);
+}
+
+.app-cart-link {
+  min-width: 3rem;
+}
+
+.app-cart-badge {
+  font-size: 0.7rem;
+  min-width: 1.45em;
+  min-height: 1.45em;
+  padding: 0.25em 0.42em;
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  box-shadow: 0 6px 14px rgba(239, 68, 68, 0.35);
+}
+
+.app-footer-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-text-heading);
+}
+
+@media (max-width: 991.98px) {
+  .app-nav-list {
+    align-items: stretch !important;
+    gap: 0.25rem;
+  }
 }
 
 main {
@@ -113,9 +125,8 @@ p {
 }
 
 .active-link {
-  font-weight: bold;
-  color: darkcyan;
-  text-decoration: none;
+  color: #0f172a !important;
+  background-color: rgba(15, 23, 42, 0.1) !important;
 }
 
 /* --- Form Field --- */
