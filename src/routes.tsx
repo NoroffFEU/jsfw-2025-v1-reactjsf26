@@ -1,6 +1,6 @@
 import { RootRoute, Route, Router } from '@tanstack/react-router';
 import Layout from './components/layout/Layout';
-import HomePage from './pages/HomePage';
+import HomePage from './pages/OnlineShop';
 import CartPage from './pages/CartPage';
 import CheckoutSuccessPage from './pages/CheckoutSuccessPage';
 import ContactPage from './pages/ContactPage';
@@ -17,7 +17,7 @@ const rootRoute = new RootRoute({
 
 export const indexRoute = new Route({
   getParentRoute: () => rootRoute,
-  path: '/',
+  path: '/online-shop',
   component: HomePage,
   loader: async () => {
     const response = await fetch(SHOP_API_URL);
@@ -72,7 +72,7 @@ const contactRoute = new Route({
 
 export const productDetailsRoute = new Route({
   getParentRoute: () => rootRoute,
-  path: `/product/$productId`,
+  path: `/online-shop/$productId`,
   component: ProductDetailPage,
   loader: async ({ params }) => {
     const response = await fetch(`${SHOP_API_URL}/${params.productId}`);
