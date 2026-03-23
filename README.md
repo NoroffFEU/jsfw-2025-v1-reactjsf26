@@ -2,7 +2,7 @@
 
 This is a course assignment that focuses on the React library with heavy use of Tanstack library. The task was to build a semi working website using modern solutions and knowledge gained throughout the course. The solution was build as a team project.
 
-![Image of the upper part of the website](./images/readMe-img.jpg)
+![Image of the upper part of the website](./public/home-img-readme.jpg)
 
 Explore the website by visiting the link - [PROD INC](https://js-frameworkca.netlify.app/)
 
@@ -19,15 +19,15 @@ Explore the website by visiting the link - [PROD INC](https://js-frameworkca.net
 
 ## Tech Stack
 
-Language = TypeScript
-Framework = React 19
-Build Tool = Vite
-Routing = TanStack React Router
-State Management = Zustand
-Forms = React Hook Form + Zod  
-Styling = Bootstrap 5  
-API = Noroff Online Shop API  
-Hosting = Netlify
+- Language = TypeScript
+- Framework = React 19
+- Build Tool = Vite
+- Routing = TanStack React Router
+- State Management = Zustand
+- Forms = React Hook Form + Zod
+- Styling = Bootstrap 5
+- API = Noroff Online Shop API
+- Hosting = Netlify
 
 ## Getting Started
 

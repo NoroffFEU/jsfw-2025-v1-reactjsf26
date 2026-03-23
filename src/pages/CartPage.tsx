@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useRouter } from '@tanstack/react-router';
 import { useCartStore } from '../store/cartStore.ts';
@@ -11,8 +10,10 @@ const CartPage = () => {
   const items = useCartStore((state) => state.items);
   const totalCost = useCartStore((state) => state.totalCost);
 
-  // Calculate original total and discount
-  const originalTotal = items.reduce((sum, item) => sum + (item.originalPrice ?? item.price) * item.quantity, 0);
+  const originalTotal = items.reduce(
+    (sum, item) => sum + (item.originalPrice ?? item.price) * item.quantity,
+    0,
+  );
   const discountedTotal = totalCost;
   const discount = originalTotal - discountedTotal;
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
@@ -69,119 +70,147 @@ const CartPage = () => {
   }
 
   return (
-    <section className="container py-5">
-      <div className="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
-        <h1 className="mb-0 fw-bold text-body">Cart</h1>
-        <span className="badge text-bg-light border text-secondary fw-semibold px-3 py-2 rounded-pill">
-          {totalItems} {totalItems === 1 ? 'item' : 'items'}
-        </span>
-      </div>
-      <div className="row g-4">
-        <div className="col-12 col-lg-8">
-          <div className="vstack gap-3">
-            {items.map((item) => (
-              <div key={item.id} className="card border-0 shadow-sm rounded-4 p-3 p-md-4 bg-white">
-                <div className="d-flex flex-wrap align-items-center gap-3">
+    <>
+      <title>Cart Page</title>
+      <meta
+        name="description"
+        content="Your cart page with all your added products for you to check out, remove or add more"
+      />
+      <section className="container py-5">
+        <h1
+          className="mb-4 fw-bold text-body"
+          style={{ color: 'var(--color-text-heading)' }}
+        >
+          Cart
+        </h1>
+        <div className="row g-4">
+          <div className="col-12 col-lg-8">
+            <div className="vstack gap-3">
+              {items.map((item) => (
+                <div
+                  key={item.id}
+                  className="card flex-row flex-wrap align-items-center p-3 gap-3 shadow-sm border-0 bg-white"
+                >
                   <img
                     src={item.image.url}
                     alt={item.image.alt}
-                    className="rounded-3 object-fit-cover bg-light"
+                    className="rounded object-fit-cover bg-light"
                     style={{ width: '90px', height: '90px' }}
                   />
                   <div className="flex-grow-1">
-                    <h2 className="h5 mb-1 fw-semibold text-body">{item.title}</h2>
+                    <h5
+                      className="mb-1 fw-semibold text-body"
+                      style={{ color: 'var(--color-text-heading)' }}
+                    >
+                      {item.title}
+                    </h5>
                     <div className="d-flex align-items-center gap-2 mb-2">
-                      <span className="fw-bold fs-5 text-primary">{formatPrice(item.price)} NOK</span>
+                      <span className="fw-bold fs-5 text-primary">
+                        {formatPrice(item.price)} NOK
+                      </span>
                       {item.quantity > 1 && (
-                        <span className="text-muted small">x {item.quantity}</span>
+                        <span className="text-muted small">
+                          x {item.quantity}
+                        </span>
                       )}
                     </div>
-                    <p className="mb-0 small text-secondary">
-                      Subtotal: <span className="fw-semibold text-body">{formatPrice(item.price * item.quantity)} NOK</span>
-                    </p>
-                  </div>
-
-                  <div className="d-flex align-items-center gap-2 ms-lg-auto">
-                    <span className="small text-secondary me-1">Qty</span>
-                    <div className="btn-group" role="group" aria-label={`Quantity selector for ${item.title}`}>
-                      <button
-                        type="button"
-                        className="btn btn-outline-secondary btn-sm"
-                        aria-label={`Decrease quantity of ${item.title}`}
-                        onClick={() => setQuantity(item.id, item.quantity - 1)}
-                        disabled={item.quantity <= 1}
+                    <div className="d-flex align-items-center gap-2">
+                      <label
+                        htmlFor={`qty-${item.id}`}
+                        className="form-label mb-0 small text-muted"
                       >
-                        <i className="bi bi-dash-lg"></i>
-                      </button>
-                      <span className="btn btn-light btn-sm disabled border border-secondary-subtle" aria-live="polite" aria-atomic="true">
-                        {item.quantity}
-                      </span>
-                      <button
-                        type="button"
-                        className="btn btn-outline-secondary btn-sm"
-                        aria-label={`Increase quantity of ${item.title}`}
-                        onClick={() => setQuantity(item.id, item.quantity + 1)}
-                      >
-                        <i className="bi bi-plus-lg"></i>
-                      </button>
+                        Qty
+                      </label>
+                      <input
+                        id={`qty-${item.id}`}
+                        type="number"
+                        min="1"
+                        className="form-control form-control-sm"
+                        style={{ width: '70px' }}
+                        value={item.quantity}
+                        onChange={(event) =>
+                          setQuantity(item.id, Number(event.target.value))
+                        }
+                      />
                     </div>
-                    <button
-                      type="button"
-                      className="btn btn-outline-danger btn-sm"
-                      title="Remove from cart"
-                      onClick={() => handleRemove(item.id, item.title, item.price * item.quantity)}
-                    >
-                      <i className="bi bi-trash"></i>
-                    </button>
                   </div>
+                  <button
+                    type="button"
+                    className="btn btn-outline-secondary btn-sm ms-auto"
+                    title="Remove from cart"
+                    onClick={() =>
+                      handleRemove(
+                        item.id,
+                        item.title,
+                        item.price * item.quantity,
+                      )
+                    }
+                  >
+                    <i className="bi bi-trash"></i>
+                  </button>
                 </div>
+              ))}
+            </div>
+          </div>
+          <div className="col-12 col-lg-4">
+            <div className="card shadow-sm border-0 p-4 bg-white">
+              <h4
+                className="mb-3 fw-semibold text-body"
+                style={{ color: 'var(--color-text-heading)' }}
+              >
+                Order Summary
+              </h4>
+              <div className="d-flex justify-content-between mb-2">
+                <span className="text-muted">Items</span>
+                <span
+                  className="fw-semibold text-body"
+                  style={{ color: 'var(--color-text-body)' }}
+                >
+                  {items.reduce((sum, item) => sum + item.quantity, 0)}
+                </span>
               </div>
-            ))}
+              {/* Show original total and discount if there is a discount */}
+              {discount > 0 && (
+                <>
+                  <div className="d-flex justify-content-between mb-1">
+                    <span className="fw-semibold">Original Total</span>
+                    <span className="text-muted text-decoration-line-through">
+                      {formatPrice(originalTotal)} NOK
+                    </span>
+                  </div>
+                  <div className="d-flex justify-content-between mb-1">
+                    <span className="fw-semibold">Discount</span>
+                    <span className="text-success">
+                      - {formatPrice(discount)} NOK
+                    </span>
+                  </div>
+                </>
+              )}
+              <div className="d-flex justify-content-between mb-3">
+                <span className="fw-semibold">Total</span>
+                <span className="fw-bold fs-5 text-primary">
+                  {formatPrice(totalCost)} NOK
+                </span>
+              </div>
+              <button
+                type="button"
+                className="btn btn-dark w-100 fw-semibold"
+                onClick={handleCheckoutClick}
+              >
+                Checkout
+              </button>
+            </div>
           </div>
         </div>
-        <div className="col-12 col-lg-4">
-          <div className="card shadow-sm border-0 rounded-4 p-4 bg-white position-sticky" style={{ top: '6rem' }}>
-            <h2 className="h4 mb-3 fw-semibold text-body">Order Summary</h2>
-            <div className="d-flex justify-content-between mb-2">
-              <span className="text-muted">Items</span>
-              <span className="fw-semibold text-body">{totalItems}</span>
-            </div>
-            {/* Show original total and discount if there is a discount */}
-            {discount > 0 && (
-              <>
-                <div className="d-flex justify-content-between mb-1">
-                  <span className="fw-semibold">Original Total</span>
-                  <span className="text-muted text-decoration-line-through">{formatPrice(originalTotal)} NOK</span>
-                </div>
-                <div className="d-flex justify-content-between mb-1">
-                  <span className="fw-semibold">Discount</span>
-                  <span className="text-success">- {formatPrice(discount)} NOK</span>
-                </div>
-              </>
-            )}
-            <div className="d-flex justify-content-between mb-3">
-              <span className="fw-semibold">Total</span>
-              <span className="fw-bold fs-5 text-primary">{formatPrice(totalCost)} NOK</span>
-            </div>
-            <button
-              type="button"
-              className="btn btn-dark w-100 fw-semibold py-2"
-              onClick={handleCheckoutClick}
-            >
-              Checkout
-            </button>
-            <p className="small text-secondary mb-0 mt-3">Shipping and taxes calculated at checkout.</p>
-          </div>
-        </div>
-      </div>
-      {removedItem && (
-        <ToastContainer
-          item={removedItem}
-          header="Removed from Cart"
-          onClose={() => setRemovedItem(null)}
-        />
-      )}
-    </section>
+        {removedItem && (
+          <ToastContainer
+            item={removedItem}
+            header="Removed from Cart"
+            onClose={() => setRemovedItem(null)}
+          />
+        )}
+      </section>
+    </>
   );
 };
 
