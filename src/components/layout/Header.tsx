@@ -49,8 +49,8 @@ const Header = () => {
             <li className="nav-item">
               <Link
                 to="/contact"
-                className="nav-link"
-                activeProps={{ className: `active-link` }}
+                className="nav-link rounded-pill px-3 fw-semibold app-nav-link"
+                activeProps={{ className: 'nav-link rounded-pill px-3 fw-semibold app-nav-link active-link' }}
                 onClick={handleNavClick}
               >
                 Contact
@@ -59,8 +59,8 @@ const Header = () => {
             <li className="nav-item">
               <Link
                 to="/cart"
-                className="nav-link position-relative"
-                activeProps={{ className: `active-link` }}
+                className="nav-link rounded-pill px-3 fw-semibold app-nav-link app-cart-link position-relative d-flex align-items-center justify-content-center"
+                activeProps={{ className: 'nav-link rounded-pill px-3 fw-semibold app-nav-link app-cart-link active-link position-relative d-flex align-items-center justify-content-center' }}
                 aria-label="Cart"
                 onClick={handleNavClick}
               >

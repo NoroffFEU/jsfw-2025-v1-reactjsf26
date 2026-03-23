@@ -16,6 +16,7 @@ const CartPage = () => {
   );
   const discountedTotal = totalCost;
   const discount = originalTotal - discountedTotal;
+  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
   const removeItem = useCartStore((state) => state.removeItem);
   const setQuantity = useCartStore((state) => state.setQuantity);
 
@@ -37,8 +38,26 @@ const CartPage = () => {
   if (items.length === 0) {
     return (
       <section className="container py-5">
-        <h1 className="mb-4">Cart</h1>
-        <div className="alert alert-info text-center">Your cart is empty.</div>
+        <div className="row justify-content-center">
+          <div className="col-12 col-md-9 col-lg-7">
+            <div className="card border-0 shadow-sm rounded-4 p-4 p-md-5 text-center bg-white">
+              <div className="mb-3">
+                <span className="d-inline-flex align-items-center justify-content-center rounded-circle bg-body-secondary" style={{ width: '64px', height: '64px' }}>
+                  <i className="bi bi-cart-x fs-3 text-secondary"></i>
+                </span>
+              </div>
+              <h1 className="h3 mb-2">Your cart is empty</h1>
+              <p className="text-secondary mb-4">Looks like you have not added anything yet.</p>
+              <button
+                type="button"
+                className="btn btn-dark px-4 fw-semibold align-self-center"
+                onClick={() => router.navigate({ to: '/' })}
+              >
+                Start shopping
+              </button>
+            </div>
+          </div>
+        </div>
         {removedItem && (
           <ToastContainer
             item={removedItem}

@@ -14,6 +14,10 @@ const CheckoutSuccessPage = () => {
     router.navigate({ to: '/online-shop' });
   };
 
+  const handleGoToContact = () => {
+    router.navigate({ to: '/contact' });
+  };
+
   return (
     <>
       <title>Checkout Success</title>
