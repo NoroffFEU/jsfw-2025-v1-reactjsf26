@@ -31,10 +31,10 @@ const HomePage = () => {
   );
 
   const handlePageChange = (newPage: number) => {
-    router.navigate({ to: '/online-shop', search: { query, page: newPage } });
+    router.navigate({ to: '/', search: { query, page: newPage } });
   };
   const clearSearch = () => {
-    router.navigate({ to: '/online-shop', search: { query: '', page: 1 } });
+    router.navigate({ to: '/', search: { query: '', page: 1 } });
     setLocalQuery('');
   };
 
@@ -56,7 +56,7 @@ const HomePage = () => {
             onChange={(e) => {
               setLocalQuery(e.target.value);
               router.navigate({
-                to: '/online-shop',
+                to: '/',
                 search: { query: e.target.value, page: 1 },
               });
             }}

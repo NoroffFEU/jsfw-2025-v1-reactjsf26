@@ -17,7 +17,7 @@ const rootRoute = new RootRoute({
 
 export const indexRoute = new Route({
   getParentRoute: () => rootRoute,
-  path: '/online-shop',
+  path: '/',
   component: HomePage,
   loader: async () => {
     const response = await fetch(SHOP_API_URL);
@@ -72,7 +72,7 @@ const contactRoute = new Route({
 
 export const productDetailsRoute = new Route({
   getParentRoute: () => rootRoute,
-  path: `/online-shop/$productId`,
+  path: '/$productId',
   component: ProductDetailPage,
   loader: async ({ params }) => {
     const response = await fetch(`${SHOP_API_URL}/${params.productId}`);

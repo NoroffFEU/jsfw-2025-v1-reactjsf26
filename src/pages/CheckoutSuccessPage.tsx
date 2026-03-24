@@ -11,11 +11,7 @@ const CheckoutSuccessPage = () => {
   }, [clearCart]);
 
   const handleGoHomeClick = () => {
-    router.navigate({ to: '/online-shop' });
-  };
-
-  const handleGoToContact = () => {
-    router.navigate({ to: '/contact' });
+    router.navigate({ to: '/' });
   };
 
   return (
