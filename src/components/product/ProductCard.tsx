@@ -50,7 +50,7 @@ const ProductCard = ({
           </div>
           <div className="card-footer bg-transparent border-0 d-flex gap-2 px-0">
             <Link
-              to="/online-shop/$productId"
+              to="/$productId"
               params={{ productId: product.id }}
               className="btn btn-outline-secondary btn-sm flex-fill"
             >

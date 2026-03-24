@@ -1,21 +1,32 @@
-const ErrorMessage = ({ error }: { error: unknown }) => {
+import FallbackState from './FallbackState';
+
+type ErrorMessageProps = {
+  error: unknown;
+  title?: string;
+  description?: string;
+  fullPage?: boolean;
+  retryLabel?: string;
+  onRetry?: () => void;
+};
+
+const ErrorMessage = ({
+  error,
+  title,
+  description,
+  fullPage = true,
+  retryLabel = 'Try again',
+  onRetry,
+}: ErrorMessageProps) => {
   return (
-    <>
-      <div className="d-flex flex-column align-items-center justify-content-center flex-grow-1">
-        <div className="alert alert-danger text-center p-4" role="alert">
-          <h2 className="fw-semibold mb-4">Something went wrong</h2>
-          <p className="text-muted mb-4">
-            {error instanceof Error ? error.message : 'Unknown error'}
-          </p>
-          <button
-            className="btn btn-primary"
-            onClick={() => window.location.reload()}
-          >
-            Please try again
-          </button>
-        </div>
-      </div>{' '}
-    </>
+    <FallbackState
+      variant="error"
+      error={error}
+      title={title}
+      description={description}
+      fullPage={fullPage}
+      retryLabel={retryLabel}
+      onRetry={onRetry ?? (() => window.location.reload())}
+    />
   );
 };
 

@@ -11,38 +11,71 @@ import ErrorMessage from './components/ui/ErrorMessage';
 import { SHOP_API_URL } from './constants/api';
 import type { ApiAllProducts, ApiSingleProducts } from './types/index';
 
+const mapResponseError = (status: number) => {
+  switch (status) {
+    case 400:
+      return 'Bad request!';
+    case 404:
+      return 'Product not found!';
+    case 429:
+      return 'Too many requests. Please wait a moment and retry.';
+    default:
+      return 'Server error. Try again later.';
+  }
+};
+
+const mapFetchError = (error: unknown) => {
+  if (error instanceof Error) {
+    if (error.message === 'Failed to fetch') {
+      return new Error('Network unavailable. Check your connection and try again.');
+    }
+
+    return error;
+  }
+
+  return new Error('Something unexpected happened. Please try again.');
+};
+
 const rootRoute = new RootRoute({
   component: Layout,
 });
 
 export const indexRoute = new Route({
   getParentRoute: () => rootRoute,
-  path: '/online-shop',
+  path: '/',
   component: HomePage,
   loader: async () => {
-    const response = await fetch(SHOP_API_URL);
+    try {
+      const response = await fetch(SHOP_API_URL);
 
-    if (!response.ok) {
-      switch (response.status) {
-        case 400:
-          throw new Error('Bad request!');
-        case 404:
-          throw new Error('Product not found!');
-        case 429:
-          throw new Error('Too many Requests, please wait');
-        default:
-          throw new Error('Server error, try again later');
+      if (!response.ok) {
+        throw new Error(mapResponseError(response.status));
       }
-    }
 
-    const result: ApiAllProducts = await response.json();
-    return { products: result.data };
+      const result: ApiAllProducts = await response.json();
+      return { products: result.data };
+    } catch (error) {
+      throw mapFetchError(error);
+    }
   },
   pendingComponent: () => {
-    return <LoadingSpinner />;
+    return (
+      <LoadingSpinner
+        title="Loading products"
+        description="Fetching the latest items for your shop view."
+      />
+    );
   },
   errorComponent: ({ error }) => {
-    return <ErrorMessage error={error} />;
+    return (
+      <ErrorMessage
+        error={error}
+        title="Could not load products"
+        description="We could not fetch the catalog right now."
+        retryLabel="Reload products"
+        onRetry={() => window.location.reload()}
+      />
+    );
   },
   validateSearch: (searchParams) => {
     return {
@@ -72,34 +105,42 @@ const contactRoute = new Route({
 
 export const productDetailsRoute = new Route({
   getParentRoute: () => rootRoute,
-  path: `/online-shop/$productId`,
+  path: '/$productId',
   component: ProductDetailPage,
   loader: async ({ params }) => {
-    const response = await fetch(`${SHOP_API_URL}/${params.productId}`);
+    try {
+      const response = await fetch(`${SHOP_API_URL}/${params.productId}`);
 
-    if (!response.ok) {
-      switch (response.status) {
-        case 400:
-          throw new Error('Bad request!');
-        case 404:
-          throw new Error('Product not found!');
-        case 429:
-          throw new Error('Too many Requests, please wait');
-        default:
-          throw new Error('Server error, try again later');
+      if (!response.ok) {
+        throw new Error(mapResponseError(response.status));
       }
+
+      const result: ApiSingleProducts = await response.json();
+      const productData = result.data;
+
+      return { product: productData };
+    } catch (error) {
+      throw mapFetchError(error);
     }
-
-    const result: ApiSingleProducts = await response.json();
-    const productData = result.data;
-
-    return { product: productData };
   },
   pendingComponent: () => {
-    return <LoadingSpinner />;
+    return (
+      <LoadingSpinner
+        title="Loading product details"
+        description="Gathering product information and pricing."
+      />
+    );
   },
   errorComponent: ({ error }) => {
-    return <ErrorMessage error={error} />;
+    return (
+      <ErrorMessage
+        error={error}
+        title="Could not load this product"
+        description="This product is unavailable right now or the request failed."
+        retryLabel="Retry product request"
+        onRetry={() => window.location.reload()}
+      />
+    );
   },
 });
 

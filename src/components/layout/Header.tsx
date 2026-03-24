@@ -10,13 +10,13 @@ const Header = () => {
 
   return (
     <nav
-      className="navbar navbar-expand-lg bg-white border-bottom sticky-top"
+      className="navbar navbar-expand-lg bg-white border-bottom shadow-sm sticky-top"
       style={{ zIndex: 100 }}
     >
-      <div className="container">
+      <div className="container py-2 align-items-center">
         <Link
-          to="/online-shop"
-          className="navbar-brand fw-bold fs-4 d-flex align-items-center"
+          to="/"
+          className="navbar-brand app-brand d-inline-flex align-items-center mb-0"
           onClick={handleNavClick}
         >
           PROD INC
@@ -35,12 +35,12 @@ const Header = () => {
           className={`collapse navbar-collapse${expanded ? ' show' : ''}`}
           id="mainNavbar"
         >
-          <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-2">
+          <ul className="navbar-nav ms-auto mb-0 align-items-lg-center gap-2">
             <li className="nav-item">
               <Link
-                to="/online-shop"
-                className="nav-link"
-                activeProps={{ className: `active-link` }}
+                to="/"
+                className="nav-link rounded-pill px-3 fw-semibold text-dark-emphasis"
+                activeProps={{ className: 'nav-link rounded-pill px-3 fw-semibold text-dark active-link' }}
                 onClick={handleNavClick}
               >
                 Home
@@ -49,8 +49,8 @@ const Header = () => {
             <li className="nav-item">
               <Link
                 to="/contact"
-                className="nav-link rounded-pill px-3 fw-semibold app-nav-link"
-                activeProps={{ className: 'nav-link rounded-pill px-3 fw-semibold app-nav-link active-link' }}
+                className="nav-link rounded-pill px-3 fw-semibold text-dark-emphasis"
+                activeProps={{ className: 'nav-link rounded-pill px-3 fw-semibold text-dark active-link' }}
                 onClick={handleNavClick}
               >
                 Contact
@@ -59,22 +59,18 @@ const Header = () => {
             <li className="nav-item">
               <Link
                 to="/cart"
-                className="nav-link rounded-pill px-3 fw-semibold app-nav-link app-cart-link position-relative d-flex align-items-center justify-content-center"
-                activeProps={{ className: 'nav-link rounded-pill px-3 fw-semibold app-nav-link app-cart-link active-link position-relative d-flex align-items-center justify-content-center' }}
+                className="nav-link rounded-pill px-3 fw-semibold text-dark-emphasis position-relative d-flex align-items-center justify-content-center"
+                activeProps={{ className: 'nav-link rounded-pill px-3 fw-semibold text-dark active-link position-relative d-flex align-items-center justify-content-center' }}
                 aria-label="Cart"
                 onClick={handleNavClick}
               >
-                <span className="position-relative d-inline-block">
+                <span className="position-relative d-inline-flex align-items-center gap-2">
                   <i className="bi bi-cart3 fs-5"></i>
+                  <span className="d-lg-none">Cart</span>
                   {itemCount > 0 && (
                     <span
                       className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                      style={{
-                        fontSize: '0.75em',
-                        minWidth: '1.3em',
-                        minHeight: '1.3em',
-                        padding: '0.25em 0.4em',
-                      }}
+                      style={{ minWidth: '1.45em', minHeight: '1.45em' }}
                     >
                       {itemCount}
                     </span>

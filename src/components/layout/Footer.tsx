@@ -1,5 +1,4 @@
 
-import { Link } from '@tanstack/react-router';
 
 const Footer = () => {
   return (
@@ -10,13 +9,7 @@ const Footer = () => {
             <p className="mb-1 text-uppercase fw-bold app-footer-brand">PROD INC</p>
             <p className="mb-0 small text-secondary">Shopping essentials with a clean, reliable checkout flow.</p>
           </div>
-          <div className="col-12 col-md-auto">
-            <nav className="d-flex flex-wrap gap-2" aria-label="Footer Navigation">
-              <Link to="/" className="btn btn-sm btn-outline-secondary rounded-pill px-3">Home</Link>
-              <Link to="/contact" className="btn btn-sm btn-outline-secondary rounded-pill px-3">Contact</Link>
-              <Link to="/cart" className="btn btn-sm btn-outline-secondary rounded-pill px-3">Cart</Link>
-            </nav>
-          </div>
+          {/* No navigation in the footer for a minimal, clean look */}
         </div>
         <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-2 mt-4 pt-3 border-top text-secondary small">
           <div className="d-flex align-items-center gap-2">
