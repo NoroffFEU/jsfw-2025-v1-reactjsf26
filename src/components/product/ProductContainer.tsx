@@ -37,9 +37,15 @@ const ProductContainer = ({
   return (
     <section className="container">
       {products.length === 0 ? (
-        <div className="text-center py-5 mt-5">
-          <i className="bi bi-search fs-1 d-block mb-3" />
-          <p className="h4">
+        <div className="fallback-shell fallback-shell--inline text-center py-5 mt-5">
+          <div className="fallback-panel">
+            <i className="bi bi-search fs-1 d-block mb-3" />
+            <h2 className="h4 fw-semibold mb-2">No products found</h2>
+            <p className="text-muted mb-0">
+              Try adjusting your search and explore other products.
+            </p>
+          </div>
+          <p className="h5 mt-3 mb-0">
             No products found for{' '}
             {query && (
               <strong>

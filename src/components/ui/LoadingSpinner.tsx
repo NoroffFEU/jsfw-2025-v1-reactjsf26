@@ -1,12 +1,23 @@
-const LoadingSpinner = () => {
+import FallbackState from './FallbackState';
+
+type LoadingSpinnerProps = {
+  title?: string;
+  description?: string;
+  fullPage?: boolean;
+};
+
+const LoadingSpinner = ({
+  title,
+  description,
+  fullPage = true,
+}: LoadingSpinnerProps) => {
   return (
-    <>
-      <div className="d-flex flex-column align-items-center justify-content-center flex-grow-1 text-center">
-        <div className="spinner-border" role="status">
-          <span className="visually-hidden">Loading</span>
-        </div>
-      </div>{' '}
-    </>
+    <FallbackState
+      variant="loading"
+      title={title}
+      description={description}
+      fullPage={fullPage}
+    />
   );
 };
 
