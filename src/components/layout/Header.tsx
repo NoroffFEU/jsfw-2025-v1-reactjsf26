@@ -36,7 +36,7 @@ const Header = () => {
           id="mainNavbar"
         >
           <ul className="navbar-nav ms-auto mb-0 align-items-lg-center gap-2">
-            <li className="nav-item">
+            <li className="nav-item pt-3 pt-lg-0">
               <Link
                 to="/"
                 className="nav-link rounded-pill px-3 fw-semibold text-dark-emphasis"
@@ -77,12 +77,20 @@ const Header = () => {
                   <i className="bi bi-cart3 fs-5"></i>
                   <span className="d-lg-none">Cart</span>
                   {itemCount > 0 && (
-                    <span
-                      className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                      style={{ minWidth: '1.45em', minHeight: '1.45em' }}
-                    >
-                      {itemCount}
-                    </span>
+                    <>
+                      <span
+                        className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none d-lg-inline"
+                        style={{ minWidth: '1.45em', minHeight: '1.45em' }}
+                      >
+                        {itemCount}
+                      </span>
+                      <span
+                        className="badge rounded-pill bg-danger d-lg-none"
+                        style={{ minWidth: '1.45em', minHeight: '1.45em' }}
+                      >
+                        {itemCount}
+                      </span>
+                    </>
                   )}
                 </span>
               </Link>
