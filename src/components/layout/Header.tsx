@@ -16,7 +16,7 @@ const Header = () => {
       <div className="container py-2 align-items-center">
         <Link
           to="/"
-          className="navbar-brand app-brand d-inline-flex align-items-center mb-0"
+          className="navbar-brand app-brand d-inline-flex align-items-center mb-0 focus-ring-0"
           onClick={handleNavClick}
         >
           PROD INC
@@ -36,11 +36,14 @@ const Header = () => {
           id="mainNavbar"
         >
           <ul className="navbar-nav ms-auto mb-0 align-items-lg-center gap-2">
-            <li className="nav-item">
+            <li className="nav-item pt-3 pt-lg-0">
               <Link
                 to="/"
                 className="nav-link rounded-pill px-3 fw-semibold text-dark-emphasis"
-                activeProps={{ className: 'nav-link rounded-pill px-3 fw-semibold text-dark active-link' }}
+                activeProps={{
+                  className:
+                    'nav-link rounded-pill px-3 fw-semibold text-dark active-link',
+                }}
                 onClick={handleNavClick}
               >
                 Home
@@ -50,7 +53,10 @@ const Header = () => {
               <Link
                 to="/contact"
                 className="nav-link rounded-pill px-3 fw-semibold text-dark-emphasis"
-                activeProps={{ className: 'nav-link rounded-pill px-3 fw-semibold text-dark active-link' }}
+                activeProps={{
+                  className:
+                    'nav-link rounded-pill px-3 fw-semibold text-dark active-link',
+                }}
                 onClick={handleNavClick}
               >
                 Contact
@@ -60,7 +66,10 @@ const Header = () => {
               <Link
                 to="/cart"
                 className="nav-link rounded-pill px-3 fw-semibold text-dark-emphasis position-relative d-flex align-items-center justify-content-center"
-                activeProps={{ className: 'nav-link rounded-pill px-3 fw-semibold text-dark active-link position-relative d-flex align-items-center justify-content-center' }}
+                activeProps={{
+                  className:
+                    'nav-link rounded-pill px-3 fw-semibold text-dark active-link position-relative d-flex align-items-center justify-content-center',
+                }}
                 aria-label="Cart"
                 onClick={handleNavClick}
               >
@@ -68,12 +77,20 @@ const Header = () => {
                   <i className="bi bi-cart3 fs-5"></i>
                   <span className="d-lg-none">Cart</span>
                   {itemCount > 0 && (
-                    <span
-                      className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                      style={{ minWidth: '1.45em', minHeight: '1.45em' }}
-                    >
-                      {itemCount}
-                    </span>
+                    <>
+                      <span
+                        className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none d-lg-inline"
+                        style={{ minWidth: '1.45em', minHeight: '1.45em' }}
+                      >
+                        {itemCount}
+                      </span>
+                      <span
+                        className="badge rounded-pill bg-danger d-lg-none"
+                        style={{ minWidth: '1.45em', minHeight: '1.45em' }}
+                      >
+                        {itemCount}
+                      </span>
+                    </>
                   )}
                 </span>
               </Link>

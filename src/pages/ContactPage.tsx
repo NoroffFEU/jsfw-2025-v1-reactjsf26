@@ -49,7 +49,7 @@ const ContactPage = () => {
         name="description"
         content="Contact us today so that we can help you out if you have any questions or have an issue with your order"
       />
-      <div className="container align-items-center justify-content-center text-center my-3 my-md-5">
+      <div className="container align-items-center justify-content-center text-center mt-5">
         <div className="row">
           <div className="col-12 order-2 col-md-5 order-md-1 mt-5 mt-md-0">
             <ContactText />
