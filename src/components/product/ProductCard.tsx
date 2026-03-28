@@ -19,21 +19,30 @@ const ProductCard = ({
   return (
     <div key={product.id}>
       <div className="card h-100 border-0 shadow-sm">
-        <div
-          className="position-relative overflow-hidden"
-          style={{ height: '220px' }}
+        <Link
+          to="/$productId"
+          params={{ productId: product.id }}
+          className="position-relative overflow-hidden "
+          style={{ height: '220px', cursor: 'pointer' }}
         >
           <img
             src={product.image.url}
             alt={product.image.alt}
-            className="w-100 h-100 object-fit-cover"
+            className="w-100 h-100 rounded-top object-fit-cover"
           />
           {hasDiscount(product) && (
-            <span className="badge bg-danger position-absolute top-0 end-0 m-2">
-              -{discountPercent(product)}%
-            </span>
+            <div className="position-absolute discount-div top-0 start-0 mt-3 d-inline-flex flex-column align-items-center justify-content-center">
+              <span>
+                {discountPercent(product)}
+                <i className="bi bi-percent" style={{ fontSize: '1rem' }}>
+                  {' '}
+                  <span className="visually-hidden">hidden</span>
+                </i>
+              </span>
+              <span className="discount">OFF</span>
+            </div>
           )}
-        </div>
+        </Link>
         <div className="card-body d-flex flex-column gap-2">
           <h5 className="card-title fw-semibold mb-0">{product.title}</h5>
           <div className="mt-auto pt-2">
@@ -59,7 +68,7 @@ const ProductCard = ({
             <button
               type="button"
               onClick={() => addToCart(product)}
-              className={`btn btn-sm flex-fill fw-semibold ${addedId === product.id ? 'btn-success' : 'btn-dark'}`}
+              className={`btn btn-sm flex-fill ${addedId === product.id ? 'btn-success ' : 'btn-dark'}`}
             >
               {addedId !== product.id ? (
                 <>Add to cart</>
