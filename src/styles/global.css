@@ -72,6 +72,7 @@ p {
 }
 
 /* --- Main --- */
+
 .price-main {
   font-size: 1.125rem;
   font-weight: 700;
@@ -144,4 +145,22 @@ p {
 .form-icon {
   font-size: 0.5rem;
   vertical-align: super;
+}
+
+.discount-div {
+  width: 3.2rem;
+  height: 3.2rem;
+  background-color: #ffd600;
+  color: var(--color-text-heading);
+  line-height: 1;
+  user-select: none;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.discount {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }

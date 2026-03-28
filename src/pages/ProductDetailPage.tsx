@@ -42,17 +42,24 @@ const ProductDetailPage = () => {
           <div className="col-md-6">
             <div
               className="position-relative rounded overflow-hidden shadow-sm"
-              style={{ maxHeight: '480px' }}
+              style={{ height: '480px' }}
             >
               <img
                 src={product.image.url}
                 alt={product.image.alt}
-                className="w-100 h-100 object-fit-cover"
+                className="w-100 h-100 object-fit-cover object-center"
               />
               {hasDiscount(product) && (
-                <span className="badge bg-danger position-absolute top-0 end-0 m-3 fs-6">
-                  -{discountPercent(product)}%
-                </span>
+                <div className="position-absolute discount-div top-0 start-0 mt-3 d-inline-flex flex-column align-items-center justify-content-center">
+                  <span>
+                    {discountPercent(product)}{' '}
+                    <i className="bi bi-percent" style={{ fontSize: '1rem' }}>
+                      {' '}
+                      <span className="visually-hidden">hidden</span>
+                    </i>
+                  </span>
+                  <span className="discount">OFF</span>
+                </div>
               )}
             </div>
           </div>
@@ -92,7 +99,7 @@ const ProductDetailPage = () => {
             <button
               type="button"
               onClick={handleAddToCart}
-              className={`btn fw-semibold align-self-start ${added ? 'btn-success' : 'btn-dark'}`}
+              className={`btn align-self-start ${added ? 'btn-success' : 'btn-dark'}`}
             >
               {added ? (
                 <>

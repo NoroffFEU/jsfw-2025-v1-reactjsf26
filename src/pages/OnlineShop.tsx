@@ -40,7 +40,7 @@ const HomePage = () => {
 
   return (
     <>
-      <title>Online Shop</title>
+      <title>Online Shop Page</title>
       <meta
         name="description"
         content="This is the online shop that where you can buy our amazing goods, best goods in town"
